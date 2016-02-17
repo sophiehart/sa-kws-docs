@@ -16,3 +16,4 @@ Table of Contents:
    SDKs Description <03-sdks-summary>
    Getting Started <04-getting-started>
    Reference <05-reference>
+   Add-ons <06-add-ons>
