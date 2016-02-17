@@ -153,6 +153,14 @@ The functions that are available from the userSdk object are the same like in th
 Frontend SDK
 ^^^^^^^^^^^^^
 
+Dependencies
+-------------
+
+THe frontend sdk has the following dependencies
+
+* jQuery 1.8+ (necessary for ajax calls)
+* font-awesome 4.4.0+ (necessary to display notifications)
+
 Including the sources in your html
 -----------------------------------
 
@@ -188,4 +196,327 @@ Instantiating the SDK
         apiKey: 'your_api_key',
         kwsApiHost: 'https://examplekwsapihost.com',
         language: 'en'  // The language of your frontend here
+    });
+
+Get user profile and points
+----------------------------
+
+This function allows to get the user's profile and their points
+
+* Function: **user.get**
+
+* Parameters: none
+
+* Response:
+
+    * **id** (Number): id of the user.
+    * **username** (string): specific display name for the app (it is app specific for every user).
+    * **applicationPermissions** (Object): description of permissions to access data. Each attribute will be a boolean indicating permission to access every specific piece of data of the child.
+    * **applicationProfile** (Object): profile specific to the app. Includes the following:
+        * **username** (string): specific display name for the app (it is app specific for every user).
+        * **avatarId** (Number): avatar identifier for the user (apps have to handle it).
+        * **customField{x}** (Number): number to be used by the app to store/get non-personal info for the user like badges for example.
+    * **dateOfBirth** (string YYYY-MM-DD).
+    * **language** (string) ISO 639-1 code.
+    * **gender** (string) 'm' for male and 'f' for female.
+    * **points** (Object) object with a summary of the points of the user. Inlcudes the following fields:
+        * **availableBalance** (Number) The current number of points available for the user.
+        * **pending** (Number) The amount of points that are blocked for the user.
+        * **total** (Number) The total current number of points for the user (including the blocked ones).
+        * **totalPointsReceivedInCurrentApp** The total number of points that the user received in this app.
+        * **totalReceived** The total number of points that the user received across all apps.
+    * **firstName** (string, optional) This field will only be available if the corresponding permission is allowed.
+    * **lastName** (string, optional) This field will only be available if the corresponding permission is allowed.
+    * **phoneNumber** (string, optional) This field will only be available if the corresponding permission is allowed.
+    * **email** (string, optional) This field will only be available if the corresponding permission is allowed.
+    * **address** (Object, optional) This field will only be available if the corresponding permission is allowed. It would contain the following fields:
+        * **street** (string)
+        * **postCode** (string)
+        * **city** (string)
+        * **country** (string)
+
+* Response example:
+
+.. code-block:: json
+
+    {
+        "id": 2,
+        "applicationPermissions":{
+            "accessAddress":true,
+            "accessFirstName":true,
+            "accessPhoneNumber":false,
+            "accessEmail":false,
+            "accessLastName":false
+        },
+        "applicationProfile": {
+            "username": "user2",
+            "avatarId": 0,
+            "customField1": 0,
+            "customField2": 0,
+            "customField3": 0,
+            "customField4": 0,
+            "customField5": 0
+        },
+        "username": "user2",
+        "dateOfBirth":"2005-03-07",
+        "language":"en",
+        "gender":null,
+        "firstName":"",
+        "address": {
+            "street":"Example Street",
+            "postCode":"11111",
+            "city":"Example City",
+            "country": "GB"
+        },
+        "points": {
+            "availableBalance": 515,
+            "pending": 0,
+            "total": 515,
+            "totalPointsReceivedInCurrentApp": 119,
+            "totalReceived": 515
+        }
+    }
+
+* Example:
+
+.. code-block:: javascript
+
+    kwsSdk.user.get()
+        .then(function (userData) {
+            // Your resp handler here
+        })
+        .fail(function (err) {
+            // Your error handler here
+        });
+
+Update user profile
+--------------------
+
+This function allows apps to update the application profile of the user (excluding the display name, which is inmutable)
+
+* Function: **user.put**
+
+* Parameters:
+
+    * **applicationProfile** (Object): profile specific to the app. Includes the following:
+        * **avatarId** (Number, optional): avatar identifier for the user (apps have to handle it).
+        * **customField{x}** (Number, optional): number to be used by the app to store/get non-personal info for the user like badges for example.
+
+* Response: empty
+
+* Example:
+
+.. code-block:: javascript
+
+    kwsSdk.user.put({
+        applicationProfile: {
+            avatarId: 1,
+            customField1: 3,
+            customField2: 2,
+            customField3: 1
+        }
+    }).then(function () {
+        // Your resp handler here
+    }).fail(function (err) {
+        // Your error handler here
+    });
+
+Trigger event
+--------------
+
+This function allows your app to award points to users when a certain event happens (like watching a video or playing a game)
+
+* Function: **user.triggerEvent**
+
+* Parameters:
+
+    * **token** (string): token string that identifies the event (KWS will provide you with this)
+    * **points** (number, optional) if omitted, the deafult amount of points will be given
+    * **description** (string, optional): Message the will be sent to the user in a notification. It can contain HTML (This message can contain the word {{POINTS}} that will be replaced by the corresponding amount of points).
+
+* Response: empty
+
+* Example:
+
+.. code-block:: javascript
+
+    kwsSdk.user.triggerEvent({
+        token: "aaabbbcccddd",
+        points: 3,
+        decription: "Thanks for watching! <br> You have been awarded {{POINTS}}!"
+    }).then(function () {
+        // Your resp handler here
+    }).fail(function (err) {
+        // Your error handler here
+        // Errors will be usual in this call, because there are limits when awarding points to users with the same token
+    });
+
+Check if event has been triggered
+----------------------------------
+
+This function is used to check if an event has already reached the limit for the user, and thus will not award points anymore.
+
+* Function: **user.hasTriggeredEvent**
+
+* Parameters:
+
+    * **eventId** (number): event identifier
+
+* Response:
+
+    * **hasTriggeredEvent** (boolean) It will indicate if the event has reached the limit or not.
+
+* Example:
+
+.. code-block:: javascript
+
+    kwsSdk.user.hasTriggeredEvent({
+        eventId: 25
+    }).then(function (resp) {
+        // Your resp handler here
+    }).fail(function (err) {
+        // Your error handler here
+    });
+
+Request permissions
+--------------------
+
+This function allows to send a notification to the parent of the user to request a permission for a specific feature, like sending a welcome pack or a birthday email.
+
+* Function: **user.requestPermissions**
+
+* Parameters:
+
+    * **permissions** (array of strings): array with the requested permissions. It can include the following strings:
+        * accessEmail
+        * accessAddress
+        * accessFirstName
+        * accessLastName
+        * accessPhoneNumber
+
+* Response: empty
+
+* Example:
+
+.. code-block:: javascript
+
+    kwsSdk.user.requestPermissions({
+        permissions: ['accessAddress']
+    }).then(function (resp) {
+        // Your resp handler here
+    }).fail(function (err) {
+        // Your error handler here
+    });
+
+Invite a friend
+----------------
+
+This function allows a user to invite a friend to the app by providing their email. The user making the invite will get rewarded with points when the new user joins the app.
+
+* Function: **user.inviteUser**
+
+* Parameters:
+
+    * **email** (strings): email of the user's friend.
+
+* Response: empty
+
+* Example:
+
+.. code-block:: javascript
+
+    kwsSdk.user.requestPermissions({
+        email: "myfriend@example.com"
+    }).then(function (resp) {
+        // Your resp handler here
+    }).fail(function (err) {
+        // Your error handler here
+    });
+
+Get score
+----------
+
+This function allows a user to get their score and rank in the app. The score can be filterd by date
+
+* Parameters:
+
+    * **start** (number, optional): lower threshold timestamp (ms) for the date filter
+    * **end** (number, optional) upper threshold timestamp (ms) for the date filter
+
+* Response:
+
+    * **points** (number) number of points of the user in the app
+    * **rank** (number) rank of ther user in the app
+
+* Example response:
+
+.. code-block:: json
+
+    {
+        "rank": 11,
+        "score": 2675
+    }
+
+* Example:
+
+    kwsSdk.app.getScore()
+        .then(function (resp) {
+            // Your resp handler here
+        })
+        .fail(function (err) {
+            // Your error handler here
+        });
+
+Get leaderboard
+----------------
+
+This function allows to get a leaderboard for the app. It can be filtered by date, allowing to show day, week and month leaderboards for example. The user does not have to be authenticated in order to make this call.
+
+* Parameters:
+
+    * **offset** (number, optional): offset of the leaderboard results (for the paged results. 0 by default)
+    * **limit** (number, optional): limit of the leaderboard results (for the paged results. 0 by default)
+    * **start** (number, optional): lower threshold timestamp (ms) for the date filter
+    * **end** (number, optional) upper threshold timestamp (ms) for the date filter
+
+* Response:
+
+    * **offset** (number) offset of the results
+    * **limit** (number) limit length applied to the results
+    * **count** (number) number of total users (if limit were not applied)
+    * **results** (array) paged results. Every entry is an object with the following attributes:
+        * **rank** (numnber) rank of the user
+
+* Example response:
+
+.. code-block:: json
+
+    {
+        "offset": 0,
+        "limit": 50,
+        "count": 2,
+        "results": [
+            {
+                "rank": 1,
+                "score": 4386,
+                "user": "user321"
+            },
+            {
+                "rank": 2,
+                "score": 1235,
+                "user": "user132"
+            }
+        ]
+    }
+
+* Example:
+
+    kwsSdk.app.leader.list({
+        start: 1454284800000,
+        end: 1456790400000
+    }).then(function (resp) {
+        // Your resp handler here
+    })
+    .fail(function (err) {
+        // Your error handler here
     });
