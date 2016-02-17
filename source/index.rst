@@ -12,6 +12,7 @@ Table of Contents:
    :maxdepth: 2
 
    Introduction <01-introduction>
-   SDKs Description <02-sdks-summary>
-   Getting Started <03-getting-started>
-   Reference <04-reference>
+   How it Works <02-how-it-works>
+   SDKs Description <03-sdks-summary>
+   Getting Started <04-getting-started>
+   Reference <05-reference>

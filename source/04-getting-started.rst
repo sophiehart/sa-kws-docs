@@ -40,11 +40,45 @@ Frontend SDK Integration
 .. code-block:: html
 
     <head>
-        (...)
+        <!-- (...) -->
 
-        <!-- KWS SDKS AND DEPENDENCIES-->
+        <!-- KWS SDK STYLES AND DEPENDENCIES-->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://s3-eu-west-1.amazonaws.com/sa-kws-frontend-sdk/v1.0.0/sa-kws-frontend-sdk-1.0.0.min.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <!-- (...) -->
+
+        <!-- KWS SDK AND DEPENDENCIES-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script type="text/javascript" src="https://s3-eu-west-1.amazonaws.com/sa-kws-frontend-sdk/v1.0.0/sa-kws-frontend-sdk-1.0.0.min.js">
-    </head>
+    </body>
+
+**Step 2.** Create an instance of the sdk in your script
+
+.. code-block:: html
+
+    <script type="text/javascript">
+
+        // KWS will provide all the necessary info for your account
+        var kwsSdk = new KwsSdk({
+            clientId: 'your_client_id',
+            clubUrl: 'https://examplekwsclub.com',
+            kwsApiHost: 'https://examplekwsapihost.com',
+            language: 'en' // The language of your frontend here
+        });
+
+        // Now you can use the sdk to make API calls. See reference section
+        kwsSdk.user.get()
+            .then(function (userData) {
+                console.log('Got user data', userData);
+            })
+            .fail(function () {
+                console.log('Call failed. User is not authenticated');
+            })
+            .always(function () {
+                console.log('This is always called at the end when the response is received');
+            });
+
+    </script>
