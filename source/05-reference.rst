@@ -294,7 +294,7 @@ Update user profile
 
 This function allows apps to update the application profile of the user (excluding the display name, which is inmutable)
 
-* Function: **user.put**
+* Function: **user.update**
 
 * Parameters:
 
@@ -308,7 +308,7 @@ This function allows apps to update the application profile of the user (excludi
 
 .. code-block:: javascript
 
-    kwsSdk.user.put({
+    kwsSdk.user.update({
         applicationProfile: {
             avatarId: 1,
             customField1: 3,
@@ -425,7 +425,7 @@ This function allows a user to invite a friend to the app by providing their ema
 
 .. code-block:: javascript
 
-    kwsSdk.user.requestPermissions({
+    kwsSdk.user.inviteUser({
         email: "myfriend@example.com"
     }).then(function (resp) {
         // Your resp handler here
@@ -514,6 +514,99 @@ This function allows to get a leaderboard for the app. It can be filtered by dat
     kwsSdk.app.leader.list({
         start: 1454284800000,
         end: 1456790400000
+    }).then(function (resp) {
+        // Your resp handler here
+    })
+    .fail(function (err) {
+        // Your error handler here
+    });
+
+Get App Data
+----------------
+
+This function allows to retrieve previous stored data related to the user in that specific app.
+The data is in the form of pair key-values. It can be filtered by key name.
+
+* Parameters:
+
+    * **offset** (number, optional): offset of the data results (for the paged results. 0 by default)
+    * **limit** (number, optional): limit of the data results (for the paged results. 0 by default)
+    * **name** (string, optional): search a value by that specific key name
+
+* Response:
+
+    * **offset** (number) offset of the results
+    * **limit** (number) limit length applied to the results
+    * **count** (number) number of total variables (if limit were not applied)
+    * **results** (array) paged results. Every entry is an object with the following attributes:
+        * **name** (string) variable name
+        * **value** (number) variable value
+
+
+* Example response:
+
+.. code-block:: json
+
+    {
+        "offset": 0,
+        "limit": 50,
+        "count": 1,
+        "results": [
+            {
+                "name": "timeTillWorldEnds",
+                "value": 2864212
+            }
+        ]
+    }
+
+* Example:
+
+    kwsSdk.app.user.appData.list({
+        name: "timeTillWorldEnds"
+    }).then(function (resp) {
+        // Your resp handler here
+    })
+    .fail(function (err) {
+        // Your error handler here
+    });
+
+
+Set App Data
+----------------
+
+This function allows to create or update data related to the user in that specific app.
+The data is in the form of pair key-values. Values can only be integers.
+
+* Parameters:
+
+    * **name** (string, optional): key name
+    * **value** (integer, optional): value to be stored
+
+* Example:
+
+    kwsSdk.app.user.appData.set({
+        name: "timeTillWorldEnds",
+        value: 2864212
+    }).then(function (resp) {
+        // Your resp handler here
+    })
+    .fail(function (err) {
+        // Your error handler here
+    });
+
+Delete App Data
+----------------
+
+This function allows to delete data related to the user in that specific app.
+
+* Parameters:
+
+    * **name** (string, optional): key name of data you want to delete
+
+* Example:
+
+    kwsSdk.app.user.appData.deleteByName({
+        name: "timeTillWorldEnds"
     }).then(function (resp) {
         // Your resp handler here
     })
