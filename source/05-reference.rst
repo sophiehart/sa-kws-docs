@@ -438,6 +438,8 @@ Get score
 
 This function allows a user to get their score and rank in the app. The score can be filterd by date
 
+* Function: **app.getScore**
+
 * Parameters:
 
     * **start** (number, optional): lower threshold timestamp (ms) for the date filter
@@ -459,6 +461,8 @@ This function allows a user to get their score and rank in the app. The score ca
 
 * Example:
 
+.. code-block:: javascript
+
     kwsSdk.app.getScore()
         .then(function (resp) {
             // Your resp handler here
@@ -471,6 +475,8 @@ Get leaderboard
 ----------------
 
 This function allows to get a leaderboard for the app. It can be filtered by date, allowing to show day, week and month leaderboards for example. The user does not have to be authenticated in order to make this call.
+
+* Function: **app.leader.list**
 
 * Parameters:
 
@@ -511,6 +517,8 @@ This function allows to get a leaderboard for the app. It can be filtered by dat
 
 * Example:
 
+.. code-block:: javascript
+
     kwsSdk.app.leader.list({
         start: 1454284800000,
         end: 1456790400000
@@ -526,6 +534,8 @@ Get App Data
 
 This function allows to retrieve previous stored data related to the user in that specific app.
 The data is in the form of pair key-values. It can be filtered by key name.
+
+* Function: **app.user.appData.list**
 
 * Parameters:
 
@@ -561,6 +571,8 @@ The data is in the form of pair key-values. It can be filtered by key name.
 
 * Example:
 
+.. code-block:: javascript
+
     kwsSdk.app.user.appData.list({
         name: "timeTillWorldEnds"
     }).then(function (resp) {
@@ -577,12 +589,18 @@ Set App Data
 This function allows to create or update data related to the user in that specific app.
 The data is in the form of pair key-values. Values can only be integers.
 
+* Function: **app.user.appData.set**
+
 * Parameters:
 
     * **name** (string, optional): key name
     * **value** (integer, optional): value to be stored
 
+* Response: empty
+
 * Example:
+
+.. code-block:: javascript
 
     kwsSdk.app.user.appData.set({
         name: "timeTillWorldEnds",
@@ -599,11 +617,17 @@ Delete App Data
 
 This function allows to delete data related to the user in that specific app.
 
+* Function: **app.user.appData.deleteByName**
+
 * Parameters:
 
     * **name** (string, optional): key name of data you want to delete
 
+* Response: empty
+
 * Example:
+
+.. code-block:: javascript
 
     kwsSdk.app.user.appData.deleteByName({
         name: "timeTillWorldEnds"
