@@ -1,6 +1,6 @@
 .. figure:: img/kws-logo.png
 
-Kids Web Services Documentation
+SDKs Documentation
 ===============================
 
 SuperAwesome Kids Web Services (KWS) Software Development Kits (SDKs) let you easily integrate KWS into third-party apps and sites, creating simple and safe user experiences with compliance at the core.
