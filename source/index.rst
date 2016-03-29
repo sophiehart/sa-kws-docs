@@ -1,4 +1,4 @@
-. figure:: img/kws-logo.png
+.. figure:: img/kws-logo.png
 
 Kids Web Services Documentation
 ===============================
