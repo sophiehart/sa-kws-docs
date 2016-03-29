@@ -1,10 +1,9 @@
-.. This page should present an overview of the whole documentation, with a TOC
-   as well as a main table that lists the most important stuff about the project
+. figure:: img/kws-logo.png
 
-KWS SDKS
-====================
+Kids Web Services Documentation
+===============================
 
-SuperAwesome Kids Web Services (KWS) SDKs (Software Development Kits) let you to easily integrate third-party apps and sites with KWS, creating simple and safe user experiences with compliance at the core.
+SuperAwesome Kids Web Services (KWS) Software Development Kits (SDKs) let you easily integrate KWS into third-party apps and sites, creating simple and safe user experiences with compliance at the core.
 
 Table of Contents:
 
