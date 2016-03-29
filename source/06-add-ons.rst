@@ -4,13 +4,13 @@ Add-ons
 Awesome Bar
 ^^^^^^^^^^^^
 
-The Awesome Bar is an add-on that includes a quick way for the user to check the summary of points and also quickly go to the club for updating the profile or looking at the points history.
+The Awesome Bar is an add-on that includes a quick way for the user to check the summary of the points they've earned, and also allows them to  quickly go to the Club if they need to update their profile or check their points history.
 
-When the Awesome Bar is included, signed users will see a button at the bottom right of the site. They can use that button to toggle the Awesome Bar on and off
+When the Awesome Bar is implemented, signed in users will see a button on the bottom right of the site. They can use that button to toggle the Awesome Bar on and off. 
 
 .. figure:: img/awesome-bar.png
 
-    (The Awesome Bar gives a quick summary of the points of the user and quick links to go the club to manage the profile)
+    (The Awesome Bar gives a quick summary of users' points and quick links to go to the Club to manage their profiles)
 
 Adding the Awesome Bar
 -----------------------
