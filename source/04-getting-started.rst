@@ -12,7 +12,7 @@ The Node.js SDK integrates very easily with apps based on express.js
 
     npm install --save "git+https://github.com/SuperAwesomeLTD/sa-kws-node-sdk.git#8ea47cf291cc54a8413f1321262f450f4feb7cb7"
 
-**Step 2.** Create an instance of the sdk in your code
+**Step 2.** Create an instance of the SDK in your code
 
 .. code-block:: javascript
 
@@ -55,7 +55,7 @@ Frontend SDK Integration
         <script type="text/javascript" src="https://s3-eu-west-1.amazonaws.com/sa-kws-frontend-sdk/v1.0.0/sa-kws-frontend-sdk-1.0.0.min.js">
     </body>
 
-**Step 2.** Create an instance of the sdk in your script
+**Step 2.** Create an instance of the SDK in your script
 
 .. code-block:: html
 
@@ -69,7 +69,7 @@ Frontend SDK Integration
             language: 'en' // The language of your frontend here
         });
 
-        // Now you can use the sdk to make API calls. See reference section
+        // Now you can use the SDK to make API calls. See reference section
         kwsSdk.user.get()
             .then(function (userData) {
                 console.log('Got user data', userData);
