@@ -26,10 +26,10 @@ Adding controller handlers for oauth callbacks
     // assuming that app is your express instance object
     app.use(kwsSdk.router);
 
-Get users map
+Get Users Map
 --------------
 
-This call allows to get the number of users aggregated by area (postal code related).
+This call allows you to get the number of users aggregated by area (postal code related).
 
 * Function: **app.user.getMap**
 
@@ -64,10 +64,10 @@ This call allows to get the number of users aggregated by area (postal code rela
             // Your error handler here
         });
 
-Get app statistics
+Get App Statistics
 -------------------
 
-This function allows to get the total points that have been awarded by the app.
+This function allows you to get the total points that have been awarded by the app.
 
 * Function: **app.getStatistics**
 
@@ -99,7 +99,7 @@ This function allows to get the total points that have been awarded by the app.
 Notify
 -------
 
-This function allows to send a notification to one or more users of the app.
+This function allows you to send a notification to one or more users of the app.
 
 * Function: **app.notify**
 
@@ -126,7 +126,7 @@ This function allows to send a notification to one or more users of the app.
 User functions
 ---------------
 
-Requests coming from the frontend will have the possibility to make calls related to the user session. These kind of calls are made preferably from the frontend directly, but there might be some ocassions when doing it from the backend can be useful.
+Requests coming from the frontend will have the possibility to make calls related to the user session. These kind of calls are preferably made from the frontend directly, but there might be some ocassions when doing it from the backend can be useful.
 
 The following example is a middleware that injects the user profile data in the req object:
 
@@ -147,7 +147,7 @@ The following example is a middleware that injects the user profile data in the 
             });
     });
 
-The functions that are available from the userSdk object are the same like in the frontend sdk. Please see Frontend SDK reference for details.
+The functions that are available from the userSdk object are the same as in the frontend SDK. Please see Frontend SDK reference for details.
 
 
 Frontend SDK
@@ -198,10 +198,10 @@ Instantiating the SDK
         language: 'en'  // The language of your frontend here
     });
 
-Get user profile and points
+Get User Profile and Points
 ----------------------------
 
-This function allows to get the user's profile and their points
+This function allows you to get the user's profile and their points
 
 * Function: **user.get**
 
@@ -289,7 +289,7 @@ This function allows to get the user's profile and their points
             // Your error handler here
         });
 
-Update user profile
+Update User Profile
 --------------------
 
 This function allows apps to update the application profile of the user (excluding the display name, which is inmutable)
@@ -378,10 +378,10 @@ This function is used to check if an event has already reached the limit for the
         // Your error handler here
     });
 
-Request permissions
+Request Permissions
 --------------------
 
-This function allows to send a notification to the parent of the user to request a permission for a specific feature, like sending a welcome pack or a birthday email.
+This function allows your app to send a notification to a user's parent to request permission for a specific feature, like sending a welcome pack or a birthday email.
 
 * Function: **user.requestPermissions**
 
@@ -408,7 +408,7 @@ This function allows to send a notification to the parent of the user to request
         // Your error handler here
     });
 
-Invite a friend
+Invite a Friend
 ----------------
 
 This function allows a user to invite a friend to the app by providing their email. The user making the invite will get rewarded with points when the new user joins the app.
@@ -433,10 +433,10 @@ This function allows a user to invite a friend to the app by providing their ema
         // Your error handler here
     });
 
-Get score
+Get Score
 ----------
 
-This function allows a user to get their score and rank in the app. The score can be filterd by date
+This function allows you to get a user's score and rank in the app. The score can be filterd by date
 
 * Function: **app.getScore**
 
@@ -471,10 +471,10 @@ This function allows a user to get their score and rank in the app. The score ca
             // Your error handler here
         });
 
-Get leaderboard
+Get Leaderboard
 ----------------
 
-This function allows to get a leaderboard for the app. It can be filtered by date, allowing to show day, week and month leaderboards for example. The user does not have to be authenticated in order to make this call.
+This function allows you to get a leaderboard for the app. It can be filtered by date, including day, week and month leaderboards for example. The user does not have to be authenticated in order to make this call.
 
 * Function: **app.leader.list**
 
@@ -532,7 +532,7 @@ This function allows to get a leaderboard for the app. It can be filtered by dat
 Get App Data
 ----------------
 
-This function allows to retrieve previous stored data related to the user in that specific app.
+This function allows you to retrieve previous stored data related to the user in that specific app.
 The data is in the form of pair key-values. It can be filtered by key name.
 
 * Function: **app.user.appData.list**
@@ -586,7 +586,7 @@ The data is in the form of pair key-values. It can be filtered by key name.
 Set App Data
 ----------------
 
-This function allows to create or update data related to the user in that specific app.
+This function allows you to create or update data related to the user in that specific app.
 The data is in the form of pair key-values. Values can only be integers.
 
 * Function: **app.user.appData.set**
@@ -615,7 +615,7 @@ The data is in the form of pair key-values. Values can only be integers.
 Delete App Data
 ----------------
 
-This function allows to delete data related to the user in that specific app.
+This function allows you to delete data related to the user in that specific app.
 
 * Function: **app.user.appData.deleteByName**
 
